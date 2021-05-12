@@ -13,16 +13,28 @@
 </head>
 <body>
     <div id="app">
-
+        
         <h1>MyJam</h1>
 
-        <div class="album-container">
-            <div class="album" v-for="album in albumList">
-                <img src="album.poster" alt="">
+        <div v-if="this.loading"    >
+            <label for="musicGenre">Scegli il tuo genere preferito!</label>
+            <select name="musicGenre" id="musicGenre" >
+                <option value="">All genres</option>
+                <option value="" v-for="(genre, index) in genres">{{genre}}</option>
+            </select>
+
+        </div>
+
+
+        <h2 v-if="!this.loading">La tua musica si sta caricando!</h2>
+
+
+        <div class="album-container" v-else="this.loading">
+            <div class="album" v-for="album in albumList" >
+                <img :src="album.poster" alt="">
                 <h3 class="album-title">{{album.author}}</h3>
                 <h4 class="album-release-year">{{album.year}}</h4>
             </div>
-
 
         </div>
 

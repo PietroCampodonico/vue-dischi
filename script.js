@@ -1,33 +1,31 @@
 new Vue({
     el: "#app",
     data: {
-        myJam: [],
         albumList: [],
+        genres: [],
+        loading: false,
     },
 
     mounted() {
+        
+        setTimeout(() => {
+            axios.get("https://flynn.boolean.careers/exercises/api/array/music")
+                .then((resp) => {
+                    this.loading = false
+                    this.albumList.push(...resp.data.response)
 
-        let mockArray = [];
-        let filteredMockArray = [];
+
+                    this.albumList.map((element) => {
+                        if(!this.genres.includes(element.genre)){
+                            this.genres.push(element.genre)
+                        }
+                    })
 
 
-        axios.get("https://flynn.boolean.careers/exercises/api/array/music")
-        .then((resp) => {
-            mockArray.push(resp.data.response)
-            this.myJam.push(...mockArray);
-
+                    console.log(this.genres)
+                    this.loading = true
+                })
+        }, 3000)
             
-            this.myJam.map((element) => {
-                element.forEach(album => {
-                    filteredMockArray.push(album)
-                });
-            })
-            
-            this.albumList.push(...filteredMockArray)
-
-            console.log(this.myJam)
-            console.log(this.albumList)
-
-        })
     },
 })
