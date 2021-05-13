@@ -16,11 +16,11 @@
         
         <h1>MyJam</h1>
 
-        <div v-if="this.loading"    >
+        <div v-if="this.loading">
             <label for="musicGenre">Scegli il tuo genere preferito!</label>
-            <select name="musicGenre" id="musicGenre" >
+            <select name="musicGenre" id="musicGenre" v-model="selectedGenre" @change="onChange()">
                 <option value="">All genres</option>
-                <option value="" v-for="(genre, index) in genres">{{genre}}</option>
+                <option :value="genre" v-for="(genre, index) in genres">{{genre}}</option>
             </select>
 
         </div>
@@ -30,7 +30,7 @@
 
 
         <div class="album-container" v-else="this.loading">
-            <div class="album" v-for="album in albumList" >
+            <div class="album" v-for="album in filteredArray" >
                 <img :src="album.poster" alt="">
                 <h3 class="album-title">{{album.author}}</h3>
                 <h4 class="album-release-year">{{album.year}}</h4>

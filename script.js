@@ -4,6 +4,21 @@ new Vue({
         albumList: [],
         genres: [],
         loading: false,
+        selectedGenre: "",
+        filteredArray: [],
+    },
+
+    methods: {
+        onChange() {
+
+            if (this. selectedGenre == "") {
+                this.filteredArray = this.albumList
+
+                return
+            }
+            
+            this.filteredArray = this.albumList.filter((album) =>  this.selectedGenre == album.genre)
+        }   
     },
 
     mounted() {
@@ -11,18 +26,16 @@ new Vue({
         setTimeout(() => {
             axios.get("https://flynn.boolean.careers/exercises/api/array/music")
                 .then((resp) => {
-                    this.loading = false
                     this.albumList.push(...resp.data.response)
 
-
-                    this.albumList.map((element) => {
-                        if(!this.genres.includes(element.genre)){
-                            this.genres.push(element.genre)
+                    this.albumList.map((album) => {
+                        if(!this.genres.includes(album.genre)){
+                            this.genres.push(album.genre)
                         }
                     })
 
+                    this.filteredArray.push(...resp.data.response)
 
-                    console.log(this.genres)
                     this.loading = true
                 })
         }, 3000)

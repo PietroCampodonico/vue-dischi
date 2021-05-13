@@ -51,6 +51,8 @@ label {
 
 select {
     outline: none;
+    padding-right: 5px;
+    border-radius: 10px;
 }
 
 .album-container {
@@ -73,4 +75,9 @@ select {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.album > h3,
+.album > h4 {
+    margin: 5px 0;
 }
